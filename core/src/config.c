@@ -1126,9 +1126,9 @@ PatchCONFIG(struct config *config)
 	char *word, *str, *end;
 	int wlen;
 
-	//g_config.mos->num_cores = num_cpus;
-	g_config.mos->num_cores = g_max_cores;
-	printf("in patch config g_max_cores:%d\n",g_max_cores);
+	g_config.mos->num_cores = num_cpus;
+	//g_config.mos->num_cores = g_max_cores;
+	printf("in patch config g_max_cores:%d\n",num_cpus);
 	word = NULL;
 
 	i = 0;
