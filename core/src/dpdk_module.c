@@ -641,8 +641,8 @@ dpdk_load_module_lower_half(void)
 		0x05, 0x05
 	};
 
-	port_conf.rx_adv_conf.rss_conf.rss_key = (uint8_t *)&key;
-	port_conf.rx_adv_conf.rss_conf.rss_key_len = sizeof(key);
+	port_conf.rx_adv_conf.rss_conf.rss_key = NULL;
+	//port_conf.rx_adv_conf.rss_conf.rss_key_len = sizeof(key);
 
 	/* resetting cpu_qid mapping */
 	memset(cpu_qid_map, 0xFF, sizeof(cpu_qid_map));
