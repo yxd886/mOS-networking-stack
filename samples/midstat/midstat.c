@@ -300,6 +300,7 @@ main(int argc, char **argv)
 	mtcp_getconf(&mcfg);
 	mcfg.num_cores = g_max_cores;
 	mtcp_setconf(&mcfg);
+	printf("gmax in main: %d\n",g_max_cores);
 
 	/* Register signal handler */
 	mtcp_register_signal(SIGINT, sigint_handler);
