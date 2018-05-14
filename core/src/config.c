@@ -22,7 +22,7 @@
 #include "io_module.h"
 /* for if_nametoindex */
 #include <net/if.h>
-
+extern int g_max_cores;
 #define MAX_PROCLINE_LEN 1024
 
 #ifdef DARWIN
@@ -1126,7 +1126,8 @@ PatchCONFIG(struct config *config)
 	char *word, *str, *end;
 	int wlen;
 
-	g_config.mos->num_cores = num_cpus;
+	//g_config.mos->num_cores = num_cpus;
+	g_config.mos->num_cores = g_max_cores;
 	word = NULL;
 
 	i = 0;
