@@ -646,6 +646,7 @@ dpdk_load_module_lower_half(void)
 
 	/* resetting cpu_qid mapping */
 	memset(cpu_qid_map, 0xFF, sizeof(cpu_qid_map));
+	printf("g_config.mos->num_cores:%d\n",g_config.mos->num_cores);
 
 	if (!g_config.mos->multiprocess
 			|| (g_config.mos->multiprocess && g_config.mos->multiprocess_is_master)) {
