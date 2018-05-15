@@ -201,7 +201,6 @@ Change_eth_addr(mctx_t mctx, int msock, int side,
     /* this function is called at the first SYN */
     //printf("received pkt!\n");
     //printf("side: %d\n",side);
-    struct pkt_info p;
 
     //printf("dst_mac: 0%x:%x:%x:%x:%x:%x\n",p.ethh->h_dest[0],p.ethh->h_dest[1],p.ethh->h_dest[2],p.ethh->h_dest[3],p.ethh->h_dest[4],p.ethh->h_dest[5]);
 
