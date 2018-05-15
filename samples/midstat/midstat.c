@@ -221,8 +221,7 @@ Change_eth_addr(mctx_t mctx, int msock, int side,
         //mtcp_setlastpkt(mctx, msock, side, 6,
         //                (uint8_t*)mac_src_str, 6, MOS_ETH_HDR | MOS_OVERWRITE);
     }
-    if (mtcp_getlastpkt(mctx, msock, side, &p) < 0)
-            EXIT_WITH_ERROR("Failed to get packet context!\n");
+
     //printf("After modification......\n");
     //printf("dst_mac: 0%x:%x:%x:%x:%x:%x\n",p.ethh->h_dest[0],p.ethh->h_dest[1],p.ethh->h_dest[2],p.ethh->h_dest[3],p.ethh->h_dest[4],p.ethh->h_dest[5]);
 
