@@ -183,10 +183,10 @@ cb_printstat(mctx_t mctx, int sock, int side,
 		}
 
 	/* Set a timer for next printing */
-	if (mtcp_settimer(mctx, sock, &tv_1sec, cb_printstat)) {
-		fprintf(stderr, "Failed to register print timer\n");
-		exit(-1); /* no point in proceeding if the timer is broken */
-	}
+//	if (mtcp_settimer(mctx, sock, &tv_1sec, cb_printstat)) {
+//		fprintf(stderr, "Failed to register print timer\n");
+//		exit(-1); /* no point in proceeding if the timer is broken */
+//	}
 
 	return;
 }
@@ -223,11 +223,11 @@ RegisterCallbacks(mctx_t mctx, int sock, event_t ev_new_syn)
 	}	
 
 	/* CPU 0 is in charge of printing stats */
-//	if (mctx->cpu == 0 &&
-//		mtcp_settimer(mctx, sock, &tv_1sec, cb_printstat)) {
-//		fprintf(stderr, "Failed to register print timer\n");
-//		exit(-1); /* no point in proceeding if the titmer is broken*/
-//	}
+	if (mctx->cpu == 0 &&
+		mtcp_settimer(mctx, sock, &tv_1sec, cb_printstat)) {
+		fprintf(stderr, "Failed to register print timer\n");
+		exit(-1); /* no point in proceeding if the titmer is broken*/
+	}
 }
 /*----------------------------------------------------------------------------*/
 /* Open monitoring socket and ready it for monitoring */
