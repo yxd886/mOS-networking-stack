@@ -115,7 +115,7 @@ GetDestinationHWaddr(uint32_t dip)
 			}
 		}
 	}
-	printf("Haddr:%x:%x:%x:%x:%x:%x\n",d_haddr[0],d_haddr[1],d_haddr[2],d_haddr[3],d_haddr[4],d_haddr[5]);
+
 
 	return d_haddr;
 }
