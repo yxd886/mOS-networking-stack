@@ -157,10 +157,10 @@ cb_printstat(mctx_t mctx, int sock, int side,
 {
 	int i;
 	struct connection *c;
-	struct timeval tv_1sec = { /* 1 second */
-		.tv_sec = 1,
-		.tv_usec = 0
-	};
+//	struct timeval tv_1sec = { /* 1 second */
+//		.tv_sec = 1,
+//		.tv_usec = 0
+//	};
 
 	printf("Proto CPU "
 		   "Client Address        Client State "
