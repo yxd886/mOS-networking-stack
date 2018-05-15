@@ -48,7 +48,7 @@ ForwardIPPacket(mtcp_manager_t mtcp, struct pkt_ctx *pctx)
 			g_config.mos->nic_forward_table->nic_fwd_table[pctx->p.in_ifidx];
 		if (pctx->out_ifidx != -1) {
 			haddr = pctx->p.ethh->h_dest;
-		    printf("Haddr:%s\n",haddr);
+		    //printf("Haddr:%s\n",haddr);
 			goto fast_tx;
 		}
 	}
