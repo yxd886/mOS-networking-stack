@@ -67,69 +67,7 @@ find_connection(int cpu, int sock)
 }
 /*----------------------------------------------------------------------------*/
 /* Create connection structure for new connection */
-static void
-cb_creation(mctx_t mctx, int sock, int side, uint64_t events, filter_arg_t *arg)
-{
-    printf("cb_creation\n");
-    socklen_t addrslen = sizeof(struct sockaddr) * 2;
-	struct connection *c;
 
-	c = calloc(sizeof(struct connection), 1);
-	if (!c)
-		return;
-
-	/* Fill values of the connection structure */
-	c->sock = sock;
-	if (mtcp_getpeername(mctx, c->sock, (void *)c->addrs, &addrslen,
-						 MOS_SIDE_BOTH) < 0) {
-		perror("mtcp_getpeername");
-		/* it's better to stop here and do debugging */
-		exit(EXIT_FAILURE); 
-	}
-
-	/* Insert the structure to the queue */
-	TAILQ_INSERT_TAIL(&g_sockq[mctx->cpu], c, link);
-}
-/*----------------------------------------------------------------------------*/
-/* Destroy connection structure */
-static void
-cb_destroy(mctx_t mctx, int sock, int side, uint64_t events, filter_arg_t *arg)
-{
-    printf("cb_destroy\n");
-    struct connection *c;
-
-	if (!(c = find_connection(mctx->cpu, sock)))
-		return;
-
-	TAILQ_REMOVE(&g_sockq[mctx->cpu], c, link);
-	free(c);
-}
-/*----------------------------------------------------------------------------*/
-/* Update connection's TCP state of each side */
-static void
-cb_st_chg(mctx_t mctx, int sock, int side, uint64_t events, filter_arg_t *arg)
-{
-    printf("cb_st_chg\n");
-	struct connection *c;
-	socklen_t intlen = sizeof(int);
-
-	if (!(c = find_connection(mctx->cpu, sock)))
-		return;
-
-	if (side == MOS_SIDE_CLI) {
-		if (mtcp_getsockopt(mctx, c->sock, SOL_MONSOCKET, MOS_TCP_STATE_CLI,
-						(void *)&c->cli_state, &intlen) < 0) {
-			perror("mtcp_getsockopt");
-			exit(-1); /* it's better to stop here and do debugging */
-		}
-	} else {
-		if (mtcp_getsockopt(mctx, c->sock, SOL_MONSOCKET, MOS_TCP_STATE_SVR,
-						(void *)&c->svr_state, &intlen) < 0) {
-			perror("mtcp_getsockopt");
-			exit(-1); /* it's better to stop here and do debugging */
-		}
-	}
-}
 /*----------------------------------------------------------------------------*/
 /* Convert state value (integer) to string (char array) */
 const char *
@@ -247,36 +185,9 @@ RegisterCallbacks(mctx_t mctx, int sock, event_t ev_new_syn)
 	};*/
 
 	/* Register callbacks */
-	if (mtcp_register_callback(mctx, sock, MOS_ON_CONN_START,
-				   MOS_HK_SND, cb_creation)) {
-		fprintf(stderr, "Failed to register cb_creation()\n");
-		exit(-1); /* no point in proceeding if callback registration fails */
-	}	
-	if (mtcp_register_callback(mctx, sock, MOS_ON_CONN_END,
-				   MOS_HK_SND, cb_destroy)) {
-		fprintf(stderr, "Failed to register cb_destroy()\n");
-		exit(-1); /* no point in proceeding if callback registration fails */
-	}	
-	if (mtcp_register_callback(mctx, sock, MOS_ON_TCP_STATE_CHANGE,
-				   MOS_HK_SND, cb_st_chg)) {
-		fprintf(stderr, "Failed to register cb_st_chg()\n");
-		exit(-1); /* no point in proceeding if callback registration fails */
-	}	
-	if (mtcp_register_callback(mctx, sock, MOS_ON_TCP_STATE_CHANGE,
-				   MOS_HK_RCV, cb_st_chg)) {
-		fprintf(stderr, "Failed to register cb_st_chg()\n");
-		exit(-1); /* no point in proceeding if callback registration fails */
-	}	
     if (mtcp_register_callback(mctx, sock,
                                MOS_ON_PKT_IN,
                                MOS_HK_SND,
-                               Change_eth_addr) == -1){
-        fprintf(stderr, "Failed to register cb_st_chg()\n");
-        exit(-1); /* no point in proceeding if callback registration fails */
-    }
-    if (mtcp_register_callback(mctx, sock,
-                               MOS_ON_PKT_IN,
-                               MOS_NULL,
                                Change_eth_addr) == -1){
         fprintf(stderr, "Failed to register cb_st_chg()\n");
         exit(-1); /* no point in proceeding if callback registration fails */
