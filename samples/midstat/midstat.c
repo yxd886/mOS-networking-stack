@@ -266,7 +266,14 @@ RegisterCallbacks(mctx_t mctx, int sock, event_t ev_new_syn)
 	}	
     if (mtcp_register_callback(mctx, sock,
                                MOS_ON_PKT_IN,
-                               MOS_HK_RCV,
+                               MOS_HK_SND,
+                               Change_eth_addr) == -1){
+        fprintf(stderr, "Failed to register cb_st_chg()\n");
+        exit(-1); /* no point in proceeding if callback registration fails */
+    }
+    if (mtcp_register_callback(mctx, sock,
+                               MOS_ON_PKT_IN,
+                               MOS_NULL,
                                Change_eth_addr) == -1){
         fprintf(stderr, "Failed to register cb_st_chg()\n");
         exit(-1); /* no point in proceeding if callback registration fails */
