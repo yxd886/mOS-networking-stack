@@ -238,10 +238,10 @@ Change_eth_addr(mctx_t mctx, int msock, int side,
 static void
 RegisterCallbacks(mctx_t mctx, int sock, event_t ev_new_syn)
 {
-	struct timeval tv_1sec = { /* 1 second */
+	/*struct timeval tv_1sec = {
 		.tv_sec = 1,
 		.tv_usec = 0
-	};
+	};*/
 
 	/* Register callbacks */
 	if (mtcp_register_callback(mctx, sock, MOS_ON_CONN_START,
