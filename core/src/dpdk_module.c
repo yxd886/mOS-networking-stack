@@ -241,6 +241,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 		}
 #endif /* !ENABLE_STATS_IOCTL */
 #endif
+		printf("cnt:%d\n",cnt);
 		printf("nif:%d\n",nif);
 		do {
 			/* tx cnt # of packets */
