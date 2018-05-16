@@ -151,13 +151,13 @@ strstate(int state)
 }
 /*----------------------------------------------------------------------------*/
 /* Print ongoing connection information based on connection structure */
-static void
+/*static void
 cb_printstat(mctx_t mctx, int sock, int side,
 				  uint64_t events, filter_arg_t *arg)
 {
 	int i;
 	struct connection *c;
-//	struct timeval tv_1sec = { /* 1 second */
+//	struct timeval tv_1sec = {
 //		.tv_sec = 1,
 //		.tv_usec = 0
 //	};
@@ -169,7 +169,7 @@ cb_printstat(mctx_t mctx, int sock, int side,
 		TAILQ_FOREACH(c, &g_sockq[i], link) {
 		//	int space;
 
-		/*	printf("%-5s %-3d ", "tcp", i);
+			printf("%-5s %-3d ", "tcp", i);
 			space = printf("%s:", inet_ntoa(c->addrs[MOS_SIDE_CLI].sin_addr));
 			printf("%*d %-12s ",
 					space - 21,
@@ -179,17 +179,17 @@ cb_printstat(mctx_t mctx, int sock, int side,
 			printf("%*d %-12s\n",
 					space - 21,
 					ntohs(c->addrs[MOS_SIDE_SVR].sin_port),
-					strstate(c->svr_state));*/
+					strstate(c->svr_state));
 		}
 
-	/* Set a timer for next printing */
+
 //	if (mtcp_settimer(mctx, sock, &tv_1sec, cb_printstat)) {
 //		fprintf(stderr, "Failed to register print timer\n");
-//		exit(-1); /* no point in proceeding if the timer is broken */
+//		exit(-1);
 //	}
 
 	return;
-}
+}*/
 /*----------------------------------------------------------------------------*/
 /* Register required callbacks */
 
@@ -275,11 +275,11 @@ RegisterCallbacks(mctx_t mctx, int sock, event_t ev_new_syn)
 
 
 	/* CPU 0 is in charge of printing stats */
-	if (mctx->cpu == 0 &&
+	/*if (mctx->cpu == 0 &&
 		mtcp_settimer(mctx, sock, &tv_1sec, cb_printstat)) {
 		fprintf(stderr, "Failed to register print timer\n");
-		exit(-1); /* no point in proceeding if the titmer is broken*/
-	}
+		exit(-1);
+	}*/
 }
 /*----------------------------------------------------------------------------*/
 /* Open monitoring socket and ready it for monitoring */
