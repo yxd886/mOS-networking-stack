@@ -246,6 +246,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 			/* tx cnt # of packets */
 			ret = rte_eth_tx_burst(nif, qid, 
 					       pkts, cnt);
+			printf("ret: %d\n",ret);
 			pkts += ret;
 			cnt -= ret;
 			/* if not all pkts were sent... then repeat the cycle */
