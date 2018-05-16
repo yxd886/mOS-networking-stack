@@ -199,6 +199,13 @@ Change_eth_addr(mctx_t mctx, int msock, int side,
 
 {
     /* this function is called at the first SYN */
+    struct pkt_info p;
+
+
+    mtcp_getlastpkt(mctx, msock, side, &p);
+    printf("In callback: eth src:%x:%x:%x:%x:%x:%x\n",p.ethh->h_source[0],p.ethh->h_source[1],p.ethh->h_source[2],p.ethh->h_source[3],p.ethh->h_source[4],p.ethh->h_source[5]);
+    printf("In callback: eth src:%x:%x:%x:%x:%x:%x\n",p.ethh->h_dest[0],p.ethh->h_dest[1],p.ethh->h_dest[2],p.ethh->h_dest[3],p.ethh->h_dest[4],p.ethh->h_dest[5]);
+
     printf("received pkt!\n");
     printf("side: %d\n",side);
 
