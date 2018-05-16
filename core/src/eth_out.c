@@ -109,6 +109,7 @@ void
 ForwardEthernetFrame(struct mtcp_manager *mtcp, struct pkt_ctx *pctx)
 {
 	uint8_t *buf;
+	printf("ForwardEthernetFrame\n");
 
 	if (g_config.mos->nic_forward_table != NULL) {
 		pctx->out_ifidx = 

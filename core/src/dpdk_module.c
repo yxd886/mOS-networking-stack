@@ -287,8 +287,6 @@ dpdk_get_wptr(struct mtcp_thread_context *ctxt, int nif, uint16_t pktsize)
 	struct rte_mbuf *m;
 	uint8_t *ptr;
 	int len_of_mbuf;
-	printf("dpdk_get_wptr was invoked!\n");
-	exit(-1);
 	dpc = (struct dpdk_private_context *) ctxt->io_private_context;
 	mtcp = ctxt->mtcp_manager;
 	
