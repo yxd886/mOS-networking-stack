@@ -167,9 +167,9 @@ cb_printstat(mctx_t mctx, int sock, int side,
 		   "Server Address        Server State\n");
 	for (i = 0; i < g_max_cores; i++)
 		TAILQ_FOREACH(c, &g_sockq[i], link) {
-			int space;
+		//	int space;
 
-			printf("%-5s %-3d ", "tcp", i);
+		/*	printf("%-5s %-3d ", "tcp", i);
 			space = printf("%s:", inet_ntoa(c->addrs[MOS_SIDE_CLI].sin_addr));
 			printf("%*d %-12s ",
 					space - 21,
@@ -179,7 +179,7 @@ cb_printstat(mctx_t mctx, int sock, int side,
 			printf("%*d %-12s\n",
 					space - 21,
 					ntohs(c->addrs[MOS_SIDE_SVR].sin_port),
-					strstate(c->svr_state));
+					strstate(c->svr_state));*/
 		}
 
 	/* Set a timer for next printing */
