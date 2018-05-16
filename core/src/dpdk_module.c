@@ -242,6 +242,12 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 #endif /* !ENABLE_STATS_IOCTL */
 #endif
 		printf("cnt:%d\n",cnt);
+		if(cnt==1){
+		    struct ethhdr *ethh =(struct ethhdr *)rte_pktmbuf_mtod(pkts[0], struct ethhdr *);
+		    printf("in dpdk send pkt!!!!\n");
+		    printf("source Haddr:%x:%x:%x:%x:%x:%x\n",ethh->h_source[0],ethh->h_source[1],ethh->h_source[2],ethh->h_source[3],ethh->h_source[4],ethh->h_source[5]);
+		    printf("dst Haddr:%x:%x:%x:%x:%x:%x\n",ethh->h_dest[0],ethh->h_dest[1],ethh->h_dest[2],ethh->h_dest[3],ethh->h_dest[4],ethh->h_dest[5]);
+		}
 		printf("nif:%d\n",nif);
 		do {
 			/* tx cnt # of packets */
