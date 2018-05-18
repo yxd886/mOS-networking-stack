@@ -241,14 +241,14 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 		}
 #endif /* !ENABLE_STATS_IOCTL */
 #endif
-		printf("cnt:%d  ",cnt);
+	/*	printf("cnt:%d  ",cnt);
 		if(cnt==1){
 		    struct ethhdr *ethh =(struct ethhdr *)rte_pktmbuf_mtod(pkts[0], struct ethhdr *);
 		    printf("in dpdk send pkt!!!!  ");
 		    printf("source Haddr:%x:%x:%x:%x:%x:%x  ",ethh->h_source[0],ethh->h_source[1],ethh->h_source[2],ethh->h_source[3],ethh->h_source[4],ethh->h_source[5]);
 		    printf("dst Haddr:%x:%x:%x:%x:%x:%x  ",ethh->h_dest[0],ethh->h_dest[1],ethh->h_dest[2],ethh->h_dest[3],ethh->h_dest[4],ethh->h_dest[5]);
 		}
-		printf("nif:%d\n",nif);
+		printf("nif:%d\n",nif);*/
 		do {
 			/* tx cnt # of packets */
 			ret = rte_eth_tx_burst(nif, qid, 
@@ -380,12 +380,12 @@ dpdk_recv_pkts(struct mtcp_thread_context *ctxt, int ifidx)
 			       dpc->pkts_burst, MAX_PKT_BURST);
 
 	if(ret!=0){
-	    printf("in receive pkt!! ");
+	   /* printf("in receive pkt!! ");
 	    printf("ret:%d",ret);
 	    struct ethhdr *ethh =(struct ethhdr *)rte_pktmbuf_mtod(dpc->pkts_burst[0], struct ethhdr *);
 	    printf("source Haddr:%x:%x:%x:%x:%x:%x  ",ethh->h_source[0],ethh->h_source[1],ethh->h_source[2],ethh->h_source[3],ethh->h_source[4],ethh->h_source[5]);
 	    printf("dst Haddr:%x:%x:%x:%x:%x:%x\n",ethh->h_dest[0],ethh->h_dest[1],ethh->h_dest[2],ethh->h_dest[3],ethh->h_dest[4],ethh->h_dest[5]);
-
+*/
 	}
 #ifdef RX_IDLE_ENABLE
 	dpc->rx_idle = (likely(ret != 0)) ? 0 : dpc->rx_idle + 1;

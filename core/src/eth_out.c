@@ -93,9 +93,9 @@ EthernetOutput(struct mtcp_manager *mtcp, struct pkt_ctx *pctx,
 		ethh->h_dest[i] = dst_haddr[i];
 	}
 
-	printf("After change mac: source Haddr:%x:%x:%x:%x:%x:%x  ",ethh->h_source[0],ethh->h_source[1],ethh->h_source[2],ethh->h_source[3],ethh->h_source[4],ethh->h_source[5]);
+	/*printf("After change mac: source Haddr:%x:%x:%x:%x:%x:%x  ",ethh->h_source[0],ethh->h_source[1],ethh->h_source[2],ethh->h_source[3],ethh->h_source[4],ethh->h_source[5]);
 	printf("dst Haddr:%x:%x:%x:%x:%x:%x  ",ethh->h_dest[0],ethh->h_dest[1],ethh->h_dest[2],ethh->h_dest[3],ethh->h_dest[4],ethh->h_dest[5]);
-	printf("output interface: %d\n",nif);
+	printf("output interface: %d\n",nif);*/
 	ethh->h_proto = htons(h_proto);
 
 	if (pctx)
@@ -109,7 +109,7 @@ void
 ForwardEthernetFrame(struct mtcp_manager *mtcp, struct pkt_ctx *pctx)
 {
 	uint8_t *buf;
-	printf("ForwardEthernetFrame\n");
+	//printf("ForwardEthernetFrame\n");
 
 	if (g_config.mos->nic_forward_table != NULL) {
 		pctx->out_ifidx = 
