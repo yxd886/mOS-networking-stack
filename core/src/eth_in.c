@@ -72,7 +72,7 @@ ProcessPacket(mtcp_manager_t mtcp, const int ifidx, const int index,
 						mtcp->iom->release_pkt(mtcp->ctx, ifidx, pkt_data, len);
 				}
 		} else { /* else forward */
-			ForwardEthernetFrame(mtcp, &pctx);
+			//ForwardEthernetFrame(mtcp, &pctx);
 			return TRUE;
 		}
 	}
