@@ -271,7 +271,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 		int i;
 		/* time to allocate fresh mbufs for the queue */
 		for (i = 0; i < dpc->wmbufs[nif].len; i++) {
-		    rte_pktmbuf_free(dpc->wmbufs[nif].m_table[i]);
+		    //rte_pktmbuf_free(dpc->wmbufs[nif].m_table[i]);
 			dpc->wmbufs[nif].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu]);
 			/* error checking */
 			if (unlikely(dpc->wmbufs[nif].m_table[i] == NULL)) {
