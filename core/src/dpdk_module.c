@@ -260,6 +260,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 		} while (cnt > 0);
 
 #ifndef SHARE_IO_BUFFER
+		printf("time to allocate fresh mbufs for the queue\n");
 		int i;
 		/* time to allocate fresh mbufs for the queue */
 		for (i = 0; i < dpc->wmbufs[nif].len; i++) {

@@ -387,7 +387,7 @@ HandleMonitorStream(mtcp_manager_t mtcp, struct tcp_stream *sendside_stream,
 	} else {
 		/* forward packets */
 		if (pctx->forward){
-		    printf("forward tcp out!!\n");
+		    //printf("forward tcp out!!\n");
 		    ForwardIPPacket(mtcp, pctx);
 		}
 
@@ -509,7 +509,7 @@ ProcessInTCPPacket(mtcp_manager_t mtcp, struct pkt_ctx *pctx)
 			   if the TCP state is CLOSED (= TCP stream does not exist). */
 			if (!tcph->rst){
              /* Send RST if it is run as EndTCP only mode */
-			    printf("SendTCPPacketStandalone\n");
+			    //printf("SendTCPPacketStandalone\n");
                 SendTCPPacketStandalone(mtcp,
                             iph->daddr, tcph->dest, iph->saddr, tcph->source,
                             0, pctx->p.seq + pctx->p.payloadlen + 1, 0,
@@ -519,7 +519,7 @@ ProcessInTCPPacket(mtcp_manager_t mtcp, struct pkt_ctx *pctx)
 
 		} else if (pctx->forward) {
 			/* Do forward or drop if it run as Monitor only mode */
-		    printf("ForwardIPPacket for tcp pkt\n");
+		    //printf("ForwardIPPacket for tcp pkt\n");
 			ForwardIPPacket(mtcp, pctx);
 		}
 	}

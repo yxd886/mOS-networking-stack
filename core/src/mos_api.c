@@ -397,6 +397,7 @@ mtcp_ppeek(mctx_t mctx, int msock, int side,
 
 	if (!cur_stream || !cur_stream->buffer_mgmt) {
 		TRACE_DBG("Stream is either NULL or ring buffer is not managed!!\n");
+		printf("Stream is either NULL or ring buffer is not managed!!\n");
 		errno = EACCES;
 		goto ppeek_error;
 	}

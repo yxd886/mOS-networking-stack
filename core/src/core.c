@@ -968,12 +968,16 @@ RunMainLoop(struct mtcp_thread_context *ctx)
 		 * before flushing epoll events, call monitor events for
 		 * all registered `read` events
 		 */
-		if (mtcp->num_msp > 0)
-			/* call this when only a standalone monitor is running */
-			FlushMonitorReadEvents(mtcp);
+		if (mtcp->num_msp > 0){
+            /* call this when only a standalone monitor is running */
+            FlushMonitorReadEvents(mtcp);
+            printf("flushmonitor\n");
+		}
+
 			
 		/* if epoll is in use, flush all the queued events */
 		if (mtcp->ep) {
+		    printf("epoll\n");
 			FlushBufferedReadEvents(mtcp);
 			FlushEpollEvents(mtcp, ts);
 		}
