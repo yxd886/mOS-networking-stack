@@ -386,8 +386,11 @@ HandleMonitorStream(mtcp_manager_t mtcp, struct tcp_stream *sendside_stream,
 		DoActionEndTCPPacket(mtcp, recvside_stream, pctx);
 	} else {
 		/* forward packets */
-		if (pctx->forward)
-			ForwardIPPacket(mtcp, pctx);
+		if (pctx->forward){
+		    printf("forward tcp out!!\n");
+		    ForwardIPPacket(mtcp, pctx);
+		}
+
 
 		if (recvside_stream->stream_type == sendside_stream->stream_type &&
 		    IS_STREAM_TYPE(recvside_stream, MOS_SOCK_MONITOR_STREAM_ACTIVE)) {
