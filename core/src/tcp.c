@@ -469,11 +469,17 @@ ProcessInTCPPacket(mtcp_manager_t mtcp, struct pkt_ctx *pctx)
 			pctx->p.offset = (uint64_t)seq2loff(cur_stream->rcvvar->rcvbuf,
 					pctx->p.seq, cur_stream->rcvvar->irs + 1);
 
-		if (IS_STREAM_TYPE(cur_stream, MOS_SOCK_STREAM))
-			HandleSockStream(mtcp, cur_stream, pctx);
+		if (IS_STREAM_TYPE(cur_stream, MOS_SOCK_STREAM)){
+		    printf("HandleSockStream\n");
+		    HandleSockStream(mtcp, cur_stream, pctx);
+		}
+
 		
-		else if (HAS_STREAM_TYPE(cur_stream, MOS_SOCK_MONITOR_STREAM_ACTIVE))
-			HandleMonitorStream(mtcp, cur_stream, cur_stream->pair_stream, pctx);
+		else if (HAS_STREAM_TYPE(cur_stream, MOS_SOCK_MONITOR_STREAM_ACTIVE)){
+		    printf("HandleMonitorStream\n");
+            HandleMonitorStream(mtcp, cur_stream, cur_stream->pair_stream, pctx);
+		}
+
 		else
 			assert(0);
 	} else {
