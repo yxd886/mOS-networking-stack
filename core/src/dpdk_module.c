@@ -265,11 +265,13 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 			/* if not all pkts were sent... then repeat the cycle */
 		} while (cnt > 0);
 
+
 #ifndef SHARE_IO_BUFFER
-		printf("time to allocate fresh mbufs for the queue\n");
+		//printf("time to allocate fresh mbufs for the queue\n");
 		int i;
 		/* time to allocate fresh mbufs for the queue */
 		for (i = 0; i < dpc->wmbufs[nif].len; i++) {
+		    rte_pktmbuf_free(dpc->wmbufs[nif].m_table[i]);
 			dpc->wmbufs[nif].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu]);
 			/* error checking */
 			if (unlikely(dpc->wmbufs[nif].m_table[i] == NULL)) {
@@ -472,7 +474,7 @@ dpdk_destroy_handle(struct mtcp_thread_context *ctxt)
 
 	/* free wmbufs */
 	for (i = 0; i < g_config.mos->netdev_table->num; i++)
-		free_pkts(dpc->wmbufs[i].m_table, MAX_PKT_BURST);
+		free_pkts(dpc->wmbufs[i].m_table, MAX_PKT_STORE);
 
 #ifdef ENABLE_STATS_IOCTL
 	/* free fd */
