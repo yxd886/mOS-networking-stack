@@ -84,7 +84,7 @@ extern inline int
 tcprb_del(tcprb_t *rb);
 
 extern inline int
-tcprb_setpile(tcprb_t *rb, loff_t new);
+tcprb_setpile(tcprb_t *rb, loff_t newa);
 
 extern inline int
 tcprb_cflen(tcprb_t *rb);
