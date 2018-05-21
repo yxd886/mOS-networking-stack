@@ -57,6 +57,7 @@
 #define TX_WTHRESH			0  /**< Default values of TX write-back threshold reg. */
 
 #define MAX_PKT_BURST			/*32*/64/*128*//*32*/
+#define MAX_PKT_STORE            50000
 
 /*
  * Configurable number of RX/TX ring descriptors
@@ -131,9 +132,14 @@ struct mbuf_table {
 	struct rte_mbuf *m_table[MAX_PKT_BURST];
 };
 
+struct huge_mbuf_table {
+    unsigned len; /* length of queued packets */
+    struct rte_mbuf *m_table[MAX_PKT_STORE];
+};
+
 struct dpdk_private_context {
 	struct mbuf_table rmbufs[RTE_MAX_ETHPORTS];
-	struct mbuf_table wmbufs[RTE_MAX_ETHPORTS];
+	struct huge_mbuf_table wmbufs[RTE_MAX_ETHPORTS];
 	struct rte_mempool *pktmbuf_pool;
 	struct rte_mbuf *pkts_burst[MAX_PKT_BURST];
 #ifdef RX_IDLE_ENABLE
@@ -277,6 +283,7 @@ dpdk_send_pkts(struct mtcp_thread_context *ctxt, int nif)
 		dpc->wmbufs[nif].len = 0;
 	}
 	
+
 	return ret;
 }
 /*----------------------------------------------------------------------------*/
@@ -292,7 +299,7 @@ dpdk_get_wptr(struct mtcp_thread_context *ctxt, int nif, uint16_t pktsize)
 	mtcp = ctxt->mtcp_manager;
 	
 	/* sanity check */
-	if (unlikely(dpc->wmbufs[nif].len == MAX_PKT_BURST))
+	if (unlikely(dpc->wmbufs[nif].len == MAX_PKT_STORE))
 		return NULL;
 
 	len_of_mbuf = dpc->wmbufs[nif].len;
