@@ -476,7 +476,7 @@ ProcessInTCPPacket(mtcp_manager_t mtcp, struct pkt_ctx *pctx)
 
 		
 		else if (HAS_STREAM_TYPE(cur_stream, MOS_SOCK_MONITOR_STREAM_ACTIVE)){
-		    printf("HandleMonitorStream\n");
+		    //printf("HandleMonitorStream\n");
             HandleMonitorStream(mtcp, cur_stream, cur_stream->pair_stream, pctx);
 		}
 
