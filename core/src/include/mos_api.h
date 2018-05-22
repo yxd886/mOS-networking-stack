@@ -447,7 +447,7 @@ ssize_t mtcp_ppeek(mctx_t mctx, int sock, int side,
 			  char *buf, size_t count, uint64_t off);
 
 /* Use this macro to copy packets when mtcp_getlastpkt is called */
-#define MTCP_CB_GETCURPKT_CREATE_COPY
+//#define MTCP_CB_GETCURPKT_CREATE_COPY
 
 /** Get current packet of mtcp context
  * @param [in] mctx: mTCP/mOS context
@@ -459,8 +459,8 @@ ssize_t mtcp_ppeek(mctx_t mctx, int sock, int side,
  * @return 0 on success, -1 on failure
  * This is useful for running callback-only applications
  */
-int
-mtcp_getlastpkt(mctx_t mctx, int sock, int side, struct pkt_info *p);
+//int
+//mtcp_getlastpkt(mctx_t mctx, int sock, int side, struct pkt_info *p);
 
 int
 mtcp_getlastpkt(mctx_t mctx, int sock, int side, struct pkt_ctx **pctx);
