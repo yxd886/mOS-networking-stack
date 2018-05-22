@@ -186,7 +186,7 @@ dpdk_init_handle(struct mtcp_thread_context *ctxt)
 	/* set wmbufs correctly */
 	for (j = 0; j < g_config.mos->netdev_table->num; j++) {
 		/* Allocate wmbufs for each registered port */
-		for (i = 0; i < MAX_PKT_BURST; i++) {
+		for (i = 0; i < MAX_PKT_STORE; i++) {
 			dpc->wmbufs[j].m_table[i] = rte_pktmbuf_alloc(pktmbuf_pool[ctxt->cpu]);
 			if (dpc->wmbufs[j].m_table[i] == NULL) {
 				TRACE_ERROR("Failed to allocate %d:wmbuf[%d] on device %d!\n",
