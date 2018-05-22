@@ -57,7 +57,7 @@
 #define TX_WTHRESH			0  /**< Default values of TX write-back threshold reg. */
 
 #define MAX_PKT_BURST			/*32*/64/*128*//*32*/
-#define MAX_PKT_STORE            50000
+#define MAX_PKT_STORE            2000
 
 /*
  * Configurable number of RX/TX ring descriptors
