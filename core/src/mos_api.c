@@ -418,37 +418,38 @@ mtcp_ppeek(mctx_t mctx, int msock, int side,
  ppeek_error:
 	return -1;
 }
-/*----------------------------------------------------------------------------*/
-#ifdef MTCP_CB_GETCURPKT_CREATE_COPY
-static __thread unsigned char local_frame[ETHERNET_FRAME_LEN];
 inline struct pkt_info *
 ClonePacketCtx(struct pkt_info *to, unsigned char *frame, struct pkt_info *from)
 {
-	/* memcpy the entire ethernet frame */
-	assert(from);
-	assert(from->eth_len > 0);
-	assert(from->eth_len <= ETHERNET_FRAME_LEN);
-	memcpy(frame, from->ethh, from->eth_len);
+    /* memcpy the entire ethernet frame */
+    assert(from);
+    assert(from->eth_len > 0);
+    assert(from->eth_len <= ETHERNET_FRAME_LEN);
+    memcpy(frame, from->ethh, from->eth_len);
 
-	/* only memcpy till the last field before ethh */
-	/* memcpy(to, from, PCTX_COPY_LEN); */
-	memcpy(to, from, PKT_INFO_LEN);
-	/* set iph */
-	to->ethh = (struct ethhdr *)frame;
-	/* set iph */
-	to->iph = from->iph ?
-		(struct iphdr *)((uint8_t *)(frame + ETHERNET_HEADER_LEN)) : NULL;
-	if (to->iph) {
-		/* set tcph */
-		to->tcph = from->tcph ?
-			(struct tcphdr *)(((uint8_t *)(to->iph)) + (to->iph->ihl<<2)) : NULL;
-		if (to->tcph)
-			/* set payload */
-			to->payload = from->tcph ?
-				((uint8_t *)(to->tcph) + (to->tcph->doff<<2)) : NULL;
-	}
-	return to;
+    /* only memcpy till the last field before ethh */
+    /* memcpy(to, from, PCTX_COPY_LEN); */
+    memcpy(to, from, PKT_INFO_LEN);
+    /* set iph */
+    to->ethh = (struct ethhdr *)frame;
+    /* set iph */
+    to->iph = from->iph ?
+        (struct iphdr *)((uint8_t *)(frame + ETHERNET_HEADER_LEN)) : NULL;
+    if (to->iph) {
+        /* set tcph */
+        to->tcph = from->tcph ?
+            (struct tcphdr *)(((uint8_t *)(to->iph)) + (to->iph->ihl<<2)) : NULL;
+        if (to->tcph)
+            /* set payload */
+            to->payload = from->tcph ?
+                ((uint8_t *)(to->tcph) + (to->tcph->doff<<2)) : NULL;
+    }
+    return to;
 }
+/*----------------------------------------------------------------------------*/
+#ifdef MTCP_CB_GETCURPKT_CREATE_COPY
+static __thread unsigned char local_frame[ETHERNET_FRAME_LEN];
+
 /*----------------------------------------------------------------------------*/
 int
 mtcp_getlastpkt(mctx_t mctx, int sock, int side, struct pkt_info *pkt)
@@ -551,6 +552,7 @@ mtcp_clonepkt(struct pkt_info *to, unsigned char *frame, struct pkt_info *from)
 {
 	ClonePacketCtx(to, frame, from);
 }
+
 /*----------------------------------------------------------------------------*/
 int
 mtcp_sendpkt(mctx_t mctx, int sock, const struct pkt_info *pkt)
