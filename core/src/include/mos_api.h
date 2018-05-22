@@ -462,12 +462,17 @@ ssize_t mtcp_ppeek(mctx_t mctx, int sock, int side,
 int
 mtcp_getlastpkt(mctx_t mctx, int sock, int side, struct pkt_info *p);
 
+int
+mtcp_getlastpkt(mctx_t mctx, int sock, int side, struct pkt_ctx **pctx);
+
+
 /** Register user's custom timer
  * @param [in] mctx: mtcp context
  * @param [in] id: timer id
  * @param [in] timeout: timeout length
  * @param [in] cb: callback function
  */
+
 int
 mtcp_settimer(mctx_t mctx, int id, struct timeval *timeout, callback_t cb);
 

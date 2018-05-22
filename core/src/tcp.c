@@ -388,7 +388,7 @@ HandleMonitorStream(mtcp_manager_t mtcp, struct tcp_stream *sendside_stream,
 		/* forward packets */
 		if (pctx->forward){
 		    //printf("forward tcp out!!\n");
-		    ForwardIPPacket(mtcp, pctx);
+		    //ForwardIPPacket(mtcp, pctx);
 		}
 
 
